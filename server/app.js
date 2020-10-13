@@ -4,15 +4,19 @@ const morgan = require("morgan");
 const path = require("path");
 const session = require("express-session");
 const flash = require("connect-flash");
+const passport = require("passport");
 require("dotenv").config();
 
 // Router
 const testRouter = require("./routes/test");
+const authRouter = require("./routes/auth");
 
 const sequelize = require("./models").sequelize;
+const passportConfig = require("./passport");
 
 const app = express();
 sequelize.sync();
+passportConfig(passport);
 
 // Views 폴더 및 pug 설정
 app.set("views", path.join(__dirname, "views"));
@@ -36,9 +40,12 @@ app.use(
   })
 );
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
 // Router setting
 app.use("/", testRouter);
+app.use("/auth", authRouter);
 
 app.use((req, res, next) => {
   const err = new Error("Not Found");
