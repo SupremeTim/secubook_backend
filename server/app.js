@@ -9,7 +9,10 @@ require("dotenv").config();
 // Router
 const testRouter = require("./routes/test");
 
+const sequelize = require("./models").sequelize;
+
 const app = express();
+sequelize.sync();
 
 // Views 폴더 및 pug 설정
 app.set("views", path.join(__dirname, "views"));
