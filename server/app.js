@@ -13,6 +13,7 @@ const authRouter = require("./routes/auth");
 
 const sequelize = require("./models").sequelize;
 const passportConfig = require("./passport");
+const logger = require("./logger");
 
 const app = express();
 sequelize.sync();
@@ -57,6 +58,7 @@ app.use("/auth", authRouter);
 app.use((req, res, next) => {
   const err = new Error("Not Found");
   err.status = 404;
+  logger.error(err.message);
   next(err);
 });
 
