@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "NODE_ENV=production PORT=80 node app",
+    "start": "NODE_ENV=production PORT=80 pm2 start app.js",
     "dev": "nodemon app"
   },
   "author": "cho",
@@ -20,6 +20,7 @@
     "mysql2": "^2.2.5",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
+    "pm2": "^4.5.0",
     "pug": "^3.0.0",
     "sequelize": "^6.3.5",
     "sequelize-cli": "^6.2.0"
