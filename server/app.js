@@ -7,6 +7,7 @@ const flash = require("connect-flash");
 const passport = require("passport");
 const helmet = require("helmet");
 const hpp = require("hpp");
+const redis = require("redis");
 const RedisStore = require("connect-redis")(session);
 require("dotenv").config();
 
@@ -38,6 +39,12 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
+const client = redis.createClient({
+  host: process.env.REDIS_HOST,
+  port: process.env.REDIS_PORT,
+  logErrors: true,
+});
+client.auth(process.env.REDIS_PASSWORD);
 const sessionOption = {
   resave: false,
   saveUninitialized: false,
@@ -46,12 +53,7 @@ const sessionOption = {
     httpOnly: true,
     secure: false,
   },
-  store: new RedisStore({
-    host: process.env.REDIS_HOST,
-    port: process.env.REDIS_PORT,
-    pass: process.env.REDIS_PASSWORD,
-    logErrors: true,
-  }),
+  store: new RedisStore({ client }),
 };
 if (process.env.NODE_ENV === "production") {
   sessionOption.proxy = true;
