@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app"
+    "start": "NODE_ENV=production PORT=80 node app",
+    "dev": "nodemon app"
   },
   "author": "cho",
   "license": "ISC",
