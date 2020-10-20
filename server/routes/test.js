@@ -5,7 +5,7 @@ const router = express.Router();
 
 router.get("/", isNotLoggedIn, (req, res, next) => {
   console.log("check");
-  res.status(200).send("안녕");
+  res.status(400).send("안녕");
 });
 
 module.exports = router;
