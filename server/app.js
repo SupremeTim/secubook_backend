@@ -23,6 +23,23 @@ const app = express();
 sequelize.sync();
 passportConfig(passport);
 
+// const albumBucketName = "secubook-img-data";
+// const bucketRegion = "ap-northeast-2";
+// const IdentityPoolId = "ap-northeast-2:d6bfe72f-11c1-4ff5-ada3-8156f27c498f";
+
+// AWS.config.update({
+//   region: bucketRegion,
+//   credentials: new AWS.CognitoIdentityCredentials({
+//     IdentityPoolId: IdentityPoolId,
+//   }),
+// });
+
+// const s3 = new AWS.S3({
+//   apiVersion: "2006-03-01",
+//   params: { Bucket: albumBucketName },
+// });
+// https://medium.com/@hozacho/브라우저에서-바로-aws-s3에-파일-업로드하기-637dde104bcc 참고
+
 // Views 폴더 및 pug 설정
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
@@ -76,6 +93,7 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res) => {
+  logger.error(err.message);
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
   res.status(err.status || 500);
