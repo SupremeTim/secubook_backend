@@ -2,6 +2,13 @@ const winston = require("winston");
 const { createLogger, format, transports } = winston;
 const { combine, timestamp, printf } = winston.format;
 
+const moment = require("moment");
+
+function myTimeStamp() {
+  return moment().format("YYYY-MM-DD HH:mm:ss");
+}
+// https://namocom.tistory.com/312 [나모의 노트]
+
 const logFormat = printf((info) => {
   return `${info.timestamp} ${info.level}: ${info.message}`;
 });
@@ -17,12 +24,12 @@ const logger = createLogger({
   transports: [
     new transports.File({
       filename: "combined.log",
-      timestamp: () => moment().format("YYYY-MM-DD HH:mm:ss"),
+      timestamp: myTimeStamp,
     }),
     new transports.File({
       filename: "error.log",
       level: "error",
-      timestamp: () => moment().format("YYYY-MM-DD HH:mm:ss"),
+      timestamp: myTimeStamp,
     }),
   ],
 });
@@ -34,7 +41,7 @@ if (process.env.NODE_ENV !== "production") {
         winston.format.colorize(), // 색깔 넣어서 출력
         winston.format.simple()
       ),
-      timestamp: () => moment().format("YYYY-MM-DD HH:mm:ss"),
+      timestamp: myTimeStamp,
     })
   );
 }
