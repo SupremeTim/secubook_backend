@@ -2,3 +2,4 @@ server/combined log
 server/error.log
 server/node_modules
 server/.env
+server/routes/test.js
