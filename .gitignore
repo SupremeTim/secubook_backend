@@ -1,4 +1,4 @@
 server/combined log
-server/error.log
+server/*.log
 server/node_modules
 server/.env
