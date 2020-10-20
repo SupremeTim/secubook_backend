@@ -24,12 +24,12 @@ const logger = createLogger({
   transports: [
     new transports.File({
       filename: "combined.log",
-      timestamp: myTimeStamp,
+      timestamp: myTimeStamp(),
     }),
     new transports.File({
       filename: "error.log",
       level: "error",
-      timestamp: myTimeStamp,
+      timestamp: myTimeStamp(),
     }),
   ],
 });
@@ -41,7 +41,7 @@ if (process.env.NODE_ENV !== "production") {
         winston.format.colorize(), // 색깔 넣어서 출력
         winston.format.simple()
       ),
-      timestamp: myTimeStamp,
+      timestamp: myTimeStamp(),
     })
   );
 }
