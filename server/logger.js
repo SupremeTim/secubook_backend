@@ -15,8 +15,15 @@ const logger = createLogger({
     logFormat
   ),
   transports: [
-    new transports.File({ filename: "combined.log" }),
-    new transports.File({ filename: "error.log", level: "error" }),
+    new transports.File({
+      filename: "combined.log",
+      timestamp: () => moment().format("YYYY-MM-DD HH:mm:ss"),
+    }),
+    new transports.File({
+      filename: "error.log",
+      level: "error",
+      timestamp: () => moment().format("YYYY-MM-DD HH:mm:ss"),
+    }),
   ],
 });
 
@@ -27,6 +34,7 @@ if (process.env.NODE_ENV !== "production") {
         winston.format.colorize(), // 색깔 넣어서 출력
         winston.format.simple()
       ),
+      timestamp: () => moment().format("YYYY-MM-DD HH:mm:ss"),
     })
   );
 }
