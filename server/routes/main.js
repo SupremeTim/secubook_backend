@@ -4,8 +4,9 @@ const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
-  console.log("check");
-  res.send("안녕");
+  // console.log("check");
+
+  res.send({ user: req.user });
 });
 
 module.exports = router;
