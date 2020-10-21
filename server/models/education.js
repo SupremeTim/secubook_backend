@@ -1,5 +1,3 @@
-const { all } = require("../routes/test");
-
 module.exports = (sequelize, DataTypes) =>
   sequelize.define(
     "education",

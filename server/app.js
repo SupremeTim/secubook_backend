@@ -12,7 +12,7 @@ const RedisStore = require("connect-redis")(session);
 require("dotenv").config();
 
 // Router
-const testRouter = require("./routes/test");
+const mainRouter = require("./routes/main");
 const authRouter = require("./routes/auth");
 
 const sequelize = require("./models").sequelize;
@@ -82,7 +82,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Router setting
-app.use("/", testRouter);
+app.use("/", mainRouter);
 app.use("/auth", authRouter);
 
 app.use((req, res, next) => {
