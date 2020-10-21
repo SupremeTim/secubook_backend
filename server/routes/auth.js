@@ -6,6 +6,10 @@ const { User } = require("../models");
 
 const router = express.Router();
 
+router.get("/", isNotLoggedIn, async (req, res, next) => {
+  res.send({ testMessage: "회원가입 화면에 왔습니다." });
+});
+
 router.post("/join", isNotLoggedIn, async (req, res, next) => {
   // 받아 올 정보 정하기
   const { email, nick, password } = req.body;
