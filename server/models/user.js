@@ -3,6 +3,10 @@ module.exports = (sequelize, DataTypes) =>
     "user",
     {
       name: {
+        type: DataTypes.STRING(10),
+        allowNull: false,
+      },
+      email: {
         type: DataTypes.STRING(40),
         allowNull: false,
         unique: true,
@@ -23,9 +27,9 @@ module.exports = (sequelize, DataTypes) =>
         type: DataTypes.STRING(100),
         allowNull: true,
       },
-      dockerName: {
-        type: DataTypes.STRING(100),
-        allowNull: true,
+      dockerPort: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
       },
     },
     {
