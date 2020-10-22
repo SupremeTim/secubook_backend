@@ -7,6 +7,10 @@ const { User } = require("../models");
 const router = express.Router();
 
 router.get("/", isNotLoggedIn, async (req, res, next) => {
+  res.send({ testMessage: "로그인/회원가입 화면에 왔습니다." });
+});
+
+router.get("/register", isNotLoggedIn, async (req, res, next) => {
   res.send({ testMessage: "회원가입 화면에 왔습니다." });
 });
 
