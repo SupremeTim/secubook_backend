@@ -38,16 +38,19 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
   passport.authenticate("local", (authError, user, info) => {
     if (authError) {
       console.error(authError);
-      return next(authError);
+      // return next(authError);
+      return res.status(500).send({ errorMessage: authError });
     }
     if (!user) {
       req.flash("loginError", info.message);
-      return res.redirect("/");
+      // return res.redirect("/");
+      return res.status(401).send({ errorMessage: info.message });
     }
     return req.login(user, (loginError) => {
       if (loginError) {
         console.error(loginError);
-        return next(loginError);
+        // return next(loginError);
+        return res.status(401).send({ errorMessage: loginError });
       }
       return res.redirect("/");
     });

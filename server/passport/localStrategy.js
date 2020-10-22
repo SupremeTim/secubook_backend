@@ -1,6 +1,5 @@
 const LocalStrategy = require("passport-local").Strategy;
 const bcrypt = require("bcrypt");
-const passport = require(".");
 
 const { User } = require("../models");
 
@@ -13,7 +12,7 @@ module.exports = (passport) => {
       },
       async (name, password, done) => {
         try {
-          const exUser = await User.findOne({ where: { email } });
+          const exUser = await User.findOne({ where: { name } });
 
           if (exUser) {
             const result = await bcrypt.compare(password, exUser.password);
