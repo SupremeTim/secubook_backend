@@ -82,6 +82,7 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(cors());
+// https://kamang-it.tistory.com/entry/Web동일-출처-정책-CORS-도대체-뭘까
 
 // Router setting
 app.use("/", mainRouter);
