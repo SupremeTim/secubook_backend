@@ -9,6 +9,7 @@ const helmet = require("helmet");
 const hpp = require("hpp");
 const redis = require("redis");
 const RedisStore = require("connect-redis")(session);
+const cors = require("cors");
 require("dotenv").config();
 
 // Router
@@ -80,6 +81,7 @@ app.use(session(sessionOption));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(cors());
 
 // Router setting
 app.use("/", mainRouter);
