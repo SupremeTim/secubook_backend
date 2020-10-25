@@ -15,26 +15,30 @@ router.get("/register", isNotLoggedIn, async (req, res, next) => {
 });
 
 router.post("/join", isNotLoggedIn, async (req, res, next) => {
-  // 받아 올 정보 정하기
-  const { email, nick, password } = req.body;
+  const { name, email, password } = req.body;
   try {
-    // 변경 필요
     const exUser = await User.findOne({ where: email });
+
     if (exUser) {
       req.flash("joinError", "이미 가입된 이메일입니다.");
-      return res.redirect("/join");
+      return res.status(409).send({ errorMessage: "중복된 이메일입니다." }); // https://blog.outsider.ne.kr/1121 참고
     }
+
     const hash = await bcrypt.hash(password, 12);
-    // 변경 필요
+
+    // 도커 생성 해야 됨!!!
     await User.create({
+      name,
       email,
-      nick,
       password: hash,
+      level: 1,
+      dockerPort: 80,
     });
     return res.redirect("/");
   } catch (error) {
     console.error(error);
-    return next(error);
+    // return next(error);
+    return res.status(500).send({ errorMessage: error });
   }
 });
 
