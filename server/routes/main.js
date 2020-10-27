@@ -6,7 +6,7 @@ const router = express.Router();
 router.get("/", (req, res, next) => {
   // console.log("check");
 
-  res.send({ user: req.user, test: "test" });
+  res.send({ user: req.user });
 });
 
 module.exports = router;
