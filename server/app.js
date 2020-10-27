@@ -16,7 +16,7 @@ require("dotenv").config();
 const setupRouter = require("./routes/setup");
 const mainRouter = require("./routes/main");
 const authRouter = require("./routes/auth");
-const levelRouter = require("./routes/level");
+// const levelRouter = require("./routes/level");
 const learnRouter = require("./routes/learn");
 
 const sequelize = require("./models").sequelize;
@@ -91,7 +91,7 @@ app.use(cors());
 app.use("/", mainRouter);
 app.use("/setup", setupRouter);
 app.use("/auth", authRouter);
-app.use("/level", levelRouter);
+// app.use("/level", levelRouter);
 app.use("/learn", learnRouter);
 
 app.use((req, res, next) => {
