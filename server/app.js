@@ -13,8 +13,11 @@ const cors = require("cors");
 require("dotenv").config();
 
 // Router
+const setupRouter = require("./routes/setup");
 const mainRouter = require("./routes/main");
 const authRouter = require("./routes/auth");
+const levelRouter = require("./routes/level");
+const learnRouter = require("./routes/learn");
 
 const sequelize = require("./models").sequelize;
 const passportConfig = require("./passport");
@@ -86,7 +89,10 @@ app.use(cors());
 
 // Router setting
 app.use("/", mainRouter);
+app.use("/setup", setupRouter);
 app.use("/auth", authRouter);
+app.use("/level", levelRouter);
+app.use("/learn", learnRouter);
 
 app.use((req, res, next) => {
   const err = new Error("Not Found");
