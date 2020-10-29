@@ -7,6 +7,7 @@ const router = express.Router();
 router.get("/", async (req, res, next) => {
   try {
     const results = await Board.findAll({
+      attributes: ["title", "content"],
       order: [["createdAt", "ASC"]],
     });
 
