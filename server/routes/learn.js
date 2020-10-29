@@ -8,7 +8,7 @@ router.get("/", (req, res, next) => {
   res.send({ user: req.user, testMessage: "learn 페이지에 왔습니다." });
 });
 
-router.get("/:category", isLoggedIn, async (req, res, next) => {
+router.get("/:category", async (req, res, next) => {
   const { title } = req.query;
 
   try {
@@ -21,13 +21,6 @@ router.get("/:category", isLoggedIn, async (req, res, next) => {
       order: [["page", "ASC"]],
     });
 
-    // console.log(results);
-    // for (const key in results) {
-    //   if (results.hasOwnProperty(key)) {
-    //     const element = results[key].content;
-    //     console.log(element);
-    //   }
-    // }
     res.send({
       user: req.user,
       results: results,
@@ -39,7 +32,7 @@ router.get("/:category", isLoggedIn, async (req, res, next) => {
   }
 });
 
-router.get("/test/:type", isLoggedIn, async (req, res, next) => {
+router.get("/test/:type", async (req, res, next) => {
   const { title } = req.query;
 
   try {
@@ -51,13 +44,6 @@ router.get("/test/:type", isLoggedIn, async (req, res, next) => {
       attributes: ["content", "image", "answer"],
     });
 
-    // console.log(results);
-    // for (const key in results) {
-    //   if (results.hasOwnProperty(key)) {
-    //     const element = results[key].content;
-    //     console.log(element);
-    //   }
-    // }
     res.send({
       user: req.user,
       results: results,
