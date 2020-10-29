@@ -8,7 +8,7 @@ router.get("/", (req, res, next) => {
   res.send({ user: req.user, testMessage: "learn 페이지에 왔습니다." });
 });
 
-router.get("/:category", async (req, res, next) => {
+router.get("/:category", isLoggedIn, async (req, res, next) => {
   const { title } = req.query;
 
   try {
@@ -39,7 +39,7 @@ router.get("/:category", async (req, res, next) => {
   }
 });
 
-router.get("/test/:type", async (req, res, next) => {
+router.get("/test/:type", isLoggedIn, async (req, res, next) => {
   const { title } = req.query;
 
   try {
