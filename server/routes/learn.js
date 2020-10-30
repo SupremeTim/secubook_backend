@@ -8,6 +8,7 @@ router.get("/", (req, res, next) => {
   res.send({ user: req.user, testMessage: "learn 페이지에 왔습니다." });
 });
 
+// 로그인 미들웨어 추가 필요
 router.get("/:category", async (req, res, next) => {
   const { title } = req.query;
 
@@ -32,6 +33,7 @@ router.get("/:category", async (req, res, next) => {
   }
 });
 
+// 로그인 미들웨어 추가 필요
 router.get("/test/:type", async (req, res, next) => {
   const { title } = req.query;
 
