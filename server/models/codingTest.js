@@ -1,3 +1,5 @@
+const { all } = require("sequelize/types/lib/operators");
+
 module.exports = (sequelize, DataTypes) =>
   sequelize.define(
     "codingTest",
@@ -10,9 +12,27 @@ module.exports = (sequelize, DataTypes) =>
         type: DataTypes.STRING(500),
         allowNull: false,
       },
+      category: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
+      level: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+      },
       image: {
         type: DataTypes.STRING(200),
+        allowNull: true,
+      },
+      cntOfSolve: {
+        type: DataTypes.INTEGER,
         allowNull: false,
+        defaultValue: 0,
+      },
+      cntOfRun: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
       },
       timeAverage: {
         type: DataTypes.INTEGER,
