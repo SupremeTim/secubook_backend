@@ -26,8 +26,7 @@ router.get("/", async (req, res, next) => {
   }
 });
 
-// 로그인 미들웨어 추가 필요
-router.get("/detail/:id", async (req, res, next) => {
+router.get("/detail/:id", isLoggedIn, async (req, res, next) => {
   try {
     const results = await Board.findOne({
       include: {
