@@ -17,7 +17,7 @@ router.get("/register", isNotLoggedIn, async (req, res, next) => {
 router.post("/join", isNotLoggedIn, async (req, res, next) => {
   const { name, email, password } = req.body;
   try {
-    const exUser = await User.findOne({ where: email });
+    const exUser = await User.findOne({ where: { email: email } });
 
     if (exUser) {
       req.flash("joinError", "이미 가입된 이메일입니다.");
