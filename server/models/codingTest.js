@@ -1,5 +1,3 @@
-const { all } = require("sequelize/types/lib/operators");
-
 module.exports = (sequelize, DataTypes) =>
   sequelize.define(
     "codingTest",
