@@ -42,25 +42,6 @@ router.get("/", async (req, res, next) => {
       answer: "정답입니다",
     });
 
-    Board.create({
-      title: "궁금해요!",
-      content: "test입니다.",
-    });
-
-    Board.create({
-      title: "궁금해요2",
-      content: "test입니다.222",
-    });
-
-    res.send({ testMessage: "더미데이터 추가 완료" });
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-});
-
-router.get("/add", async (req, res, next) => {
-  try {
     User.create({
       name: "조인택",
       email: "dlsxor21c@naver.com",
@@ -81,6 +62,15 @@ router.get("/add", async (req, res, next) => {
       userId: 1,
     });
 
+    res.send({ testMessage: "더미데이터 추가 완료" });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+router.get("/add", async (req, res, next) => {
+  try {
     res.send({ testMessage: "더미데이터 추가 완료" });
   } catch (error) {
     console.error(error);
