@@ -1,5 +1,5 @@
 const express = require("express");
-const { User, Education, Drill, Board } = require("../models");
+const { User, Education, Drill, Board, Comment } = require("../models");
 
 const router = express.Router();
 
@@ -71,6 +71,16 @@ router.get("/", async (req, res, next) => {
 
 router.get("/add", async (req, res, next) => {
   try {
+    Comment.create({
+      host: "dlsxor21c@naver.com",
+      content: "test입니다.5555",
+      boardId: 1,
+    });
+    Comment.create({
+      host: "dlsxor21c@naver.com",
+      content: "test입니다.5555",
+      boardId: 1,
+    });
     res.send({ testMessage: "더미데이터 추가 완료" });
   } catch (error) {
     console.error(error);
