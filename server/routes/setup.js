@@ -1,5 +1,12 @@
 const express = require("express");
-const { User, Education, Drill, Board, Comment } = require("../models");
+const {
+  User,
+  Education,
+  Drill,
+  Board,
+  Comment,
+  CodingTest,
+} = require("../models");
 
 const router = express.Router();
 
@@ -62,6 +69,18 @@ router.get("/", async (req, res, next) => {
       userId: 1,
     });
 
+    Comment.create({
+      host: "dlsxor21c@naver.com",
+      content: "test입니다.5555",
+      boardId: 1,
+    });
+
+    Comment.create({
+      host: "dlsxor21c@naver.com",
+      content: "test입니다.5555",
+      boardId: 1,
+    });
+
     res.send({ testMessage: "더미데이터 추가 완료" });
   } catch (error) {
     console.error(error);
@@ -71,15 +90,58 @@ router.get("/", async (req, res, next) => {
 
 router.get("/add", async (req, res, next) => {
   try {
-    Comment.create({
-      host: "dlsxor21c@naver.com",
-      content: "test입니다.5555",
-      boardId: 1,
+    CodingTest.create({
+      title: "코테문제이름",
+      content: "코테푸세요",
+      category: 0,
+      level: 1,
+      image:
+        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
     });
-    Comment.create({
-      host: "dlsxor21c@naver.com",
-      content: "test입니다.5555",
-      boardId: 1,
+
+    CodingTest.create({
+      title: "코테문제이름2",
+      content: "코테푸세요2",
+      category: 0,
+      level: 2,
+      image:
+        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+    });
+
+    CodingTest.create({
+      title: "코테문제이름3",
+      content: "코테푸세요3",
+      category: 1,
+      level: 1,
+      image:
+        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+    });
+
+    Education.create({
+      title: "XSS",
+      category: 0,
+      page: 0,
+      content: "test",
+      image:
+        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+    });
+
+    Education.create({
+      title: "XSS",
+      category: 0,
+      page: 1,
+      content: "test입니다.",
+      image:
+        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+    });
+
+    Education.create({
+      title: "XSS",
+      category: 0,
+      page: 2,
+      content: "test입니다.&&test입니다.&&test입니다.",
+      image:
+        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg&&https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
     });
     res.send({ testMessage: "더미데이터 추가 완료" });
   } catch (error) {
