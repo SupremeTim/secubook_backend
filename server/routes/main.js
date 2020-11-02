@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/", (req, res, next) => {
   // console.log("check");
   console.log("메인 라우터입니다.");
-  consolg.log(req.user);
+  console.log(req.user);
   res.send({ user: req.user, test: "테스트" });
 });
 
