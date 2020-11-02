@@ -29,23 +29,6 @@ const app = express();
 sequelize.sync();
 passportConfig(passport);
 
-// const albumBucketName = "secubook-img-data";
-// const bucketRegion = "ap-northeast-2";
-// const IdentityPoolId = "ap-northeast-2:d6bfe72f-11c1-4ff5-ada3-8156f27c498f";
-
-// AWS.config.update({
-//   region: bucketRegion,
-//   credentials: new AWS.CognitoIdentityCredentials({
-//     IdentityPoolId: IdentityPoolId,
-//   }),
-// });
-
-// const s3 = new AWS.S3({
-//   apiVersion: "2006-03-01",
-//   params: { Bucket: albumBucketName },
-// });
-// https://medium.com/@hozacho/브라우저에서-바로-aws-s3에-파일-업로드하기-637dde104bcc 참고
-
 // Views 폴더 및 pug 설정
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
@@ -76,7 +59,6 @@ const sessionOption = {
     httpOnly: true,
     secure: false,
   },
-  name: "cookie",
   // store: new RedisStore({ client }),
 };
 // if (process.env.NODE_ENV === "production") {
@@ -89,15 +71,7 @@ app.use(
     credentials: true,
   })
 ); // https://velog.io/@bigbrothershin/Backend-다른-도메인-간에-쿠키-주고받기
-app.use(function (req, res, next) {
-  res.header("Content-Type", "application/json;charset=UTF-8");
-  res.header("Access-Control-Allow-Credentials", true);
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
+
 app.use(session(sessionOption));
 app.use(flash());
 app.use(passport.initialize());
