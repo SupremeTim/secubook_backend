@@ -3,6 +3,7 @@ const passport = require("passport");
 const bcrypt = require("bcrypt");
 const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
 const { User } = require("../models");
+const shell = require("shelljs"); //https://backback.tistory.com/361 [Back Ground
 
 const router = express.Router();
 
@@ -34,6 +35,14 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
       level: 1,
       dockerPort: 80,
     });
+
+    shell.cd("/home/ubuntu/secubook_problem");
+
+    if (shell.exec("./create_container.sh " + email).code !== 0) {
+      shell.echo("Error: command failed");
+      shell.exit(1);
+    }
+
     return res.redirect("/");
   } catch (error) {
     console.error(error);
