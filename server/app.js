@@ -62,12 +62,12 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
-const client = redis.createClient({
-  host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT,
-  logErrors: true,
-}); // https://wookkk.tistory.com/entry/nodejs교과서-redis-부분-버전에-따른-에러 참고
-client.auth(process.env.REDIS_PASSWORD); // https://github.com/silverbucket/node-redis-connection-pool/issues/14 참고
+// const client = redis.createClient({
+//   host: process.env.REDIS_HOST,
+//   port: process.env.REDIS_PORT,
+//   logErrors: true,
+// }); // https://wookkk.tistory.com/entry/nodejs교과서-redis-부분-버전에-따른-에러 참고
+// client.auth(process.env.REDIS_PASSWORD); // https://github.com/silverbucket/node-redis-connection-pool/issues/14 참고
 const sessionOption = {
   resave: false,
   saveUninitialized: false,
@@ -76,7 +76,7 @@ const sessionOption = {
     httpOnly: true,
     secure: false,
   },
-  store: new RedisStore({ client }),
+  // store: new RedisStore({ client }),
 };
 // if (process.env.NODE_ENV === "production") {
 //   sessionOption.proxy = true;
