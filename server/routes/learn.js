@@ -4,8 +4,24 @@ const { Education, Drill } = require("../models");
 
 const router = express.Router();
 
-router.get("/", (req, res, next) => {
-  res.send({ user: req.user, testMessage: "learn 페이지에 왔습니다." });
+router.get("/", async (req, res, next) => {
+  try {
+    const results = await Education.findAll({
+      where: {
+        page: 0,
+      },
+      attributes: ["title", "category"],
+    });
+
+    res.send({
+      user: req.user,
+      results: results,
+      testMessage: "learn 페이지에 왔습니다.",
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ errorMessage: "서버 내부 오류입니다." });
+  }
 });
 
 router.get("/:category", isLoggedIn, async (req, res, next) => {
@@ -36,7 +52,7 @@ router.get("/test/:type", isLoggedIn, async (req, res, next) => {
   const { title } = req.query;
 
   try {
-    const results = await Drill.findOne({
+    const results = await Drill.findAll({
       where: {
         title: title,
         type: req.params.type,
@@ -54,5 +70,7 @@ router.get("/test/:type", isLoggedIn, async (req, res, next) => {
     res.status(500).send({ errorMessage: "서버 내부 오류입니다." });
   }
 });
+
+// 문제 풀기 버튼
 
 module.exports = router;
