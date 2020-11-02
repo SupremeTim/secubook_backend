@@ -76,22 +76,24 @@ const sessionOption = {
     httpOnly: true,
     secure: false,
   },
+  name: "cookie",
   // store: new RedisStore({ client }),
 };
 // if (process.env.NODE_ENV === "production") {
 //   sessionOption.proxy = true;
 //   sessionOption.cookie.secure = true;
 // }
+app.use(
+  cors({
+    origin: true,
+    credentials: true,
+  })
+); // https://velog.io/@bigbrothershin/Backend-다른-도메인-간에-쿠키-주고받기
 app.use(session(sessionOption));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-    credentials: true,
-  })
-);
+
 // https://kamang-it.tistory.com/entry/Web동일-출처-정책-CORS-도대체-뭘까
 
 // Router setting
