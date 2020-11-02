@@ -49,7 +49,7 @@ const sessionOption = {
   saveUninitialized: false,
   secret: process.env.COOKIE_SECRET,
   cookie: {
-    httpOnly: false,
+    httpOnly: true,
     secure: false,
   },
 };
