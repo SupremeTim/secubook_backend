@@ -42,6 +42,13 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
       shell.echo("Error: command failed");
       shell.exit(1);
     }
+    // // ********* 양시연 서버에서 돌려보기 용 ***********
+    // shell.cd("~/secubook_problem");
+
+    // if (shell.exec("./create_container.sh " + email).code !== 0) {
+    //   shell.echo("Error: command failed");
+    //   shell.exit(1);
+    // }
 
     return res.redirect("/");
   } catch (error) {
@@ -75,8 +82,9 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
         return res.status(401).send({ errorMessage: loginError });
       }
       // console.log("6");
-
+      console.log('여기다')
       console.log(req.session);
+      console.log('여기다2')
       return res.send({ cookie: req.session.cookie });
     });
   })(req, res, next);
