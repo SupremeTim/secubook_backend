@@ -75,7 +75,7 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
         return res.status(401).send({ errorMessage: loginError });
       }
       // console.log("6");
-      return res.send({ user: user });
+      return res.redirect("/");
     });
   })(req, res, next);
 });
