@@ -86,7 +86,12 @@ app.use(session(sessionOption));
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 // https://kamang-it.tistory.com/entry/Web동일-출처-정책-CORS-도대체-뭘까
 
 // Router setting
