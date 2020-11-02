@@ -77,7 +77,7 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
       // console.log("6");
 
       console.log(req.session);
-      return res.send({ cookie: req.session.cookie.getValue() });
+      return res.send({ cookie: req.session.cookie });
     });
   })(req, res, next);
 });
