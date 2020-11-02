@@ -81,15 +81,6 @@ router.get("/", async (req, res, next) => {
       boardId: 1,
     });
 
-    res.send({ testMessage: "더미데이터 추가 완료" });
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-});
-
-router.get("/add", async (req, res, next) => {
-  try {
     CodingTest.create({
       title: "코테문제이름",
       content: "코테푸세요",
@@ -143,6 +134,29 @@ router.get("/add", async (req, res, next) => {
       image:
         "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg&&https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
     });
+    res.send({ testMessage: "더미데이터 추가 완료" });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+router.get("/add", async (req, res, next) => {
+  try {
+    Education.destroy({
+      where: {
+        title: "XSS",
+      },
+    });
+    // Education.create({
+    //   title: "SQL-Injection",
+    //   category: 0,
+    //   page: 1,
+    //   content: "test입니다.",
+    //   image:
+    //     "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+    // });
+
     res.send({ testMessage: "더미데이터 추가 완료" });
   } catch (error) {
     console.error(error);
