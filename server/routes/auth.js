@@ -59,33 +59,23 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
 });
 
 router.post("/login", isNotLoggedIn, (req, res, next) => {
-  // console.log("1");
   passport.authenticate("local", (authError, user, info) => {
-    // console.log("2");
     if (authError) {
       console.error(authError);
-      // return next(authError);
       return res.status(500).send({ errorMessage: authError });
     }
-    // console.log("3");
+
     if (!user) {
       req.flash("loginError", info.message);
-      // return res.redirect("/");
       return res.status(401).send({ errorMessage: info.message });
     }
-    // console.log(user);
+
     return req.login(user, (loginError) => {
-      // console.log("5");
       if (loginError) {
         console.error(loginError);
-        // return next(loginError);
         return res.status(401).send({ errorMessage: loginError });
       }
-      // console.log("6");
-      console.log('여기다')
-      console.log(req.session);
-      console.log('여기다2')
-      return res.send({ cookie: req.session.cookie });
+      return res.redirect("/");
     });
   })(req, res, next);
 });
