@@ -8,7 +8,6 @@ const passport = require("passport");
 const helmet = require("helmet");
 const hpp = require("hpp");
 const cors = require("cors");
-const FileStore = require("session-file-store")(session);
 require("dotenv").config();
 
 // Router
@@ -53,7 +52,6 @@ const sessionOption = {
     httpOnly: true,
     secure: false,
   },
-  store: new FileStore(),
 };
 
 app.use(
