@@ -1,6 +1,6 @@
 const express = require("express");
 const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
-const { Education, Drill } = require("../models");
+const { Education, Drill, User } = require("../models");
 
 const router = express.Router();
 
@@ -72,5 +72,30 @@ router.get("/test/:type", isLoggedIn, async (req, res, next) => {
 });
 
 // 문제 풀기 버튼
+router.get("/check/:category", isLoggedIn, async (req, res, next) => {
+  const { title } = req.query;
+
+  try {
+    const u = await User.findOne({
+      where: { id: req.user.id },
+      attributes: ["studyList"],
+    });
+
+    await User.update({
+      studyList: u.studyList + "," + title + "/" + req.params.category,
+      where: {
+        id: req.user.id,
+      },
+    });
+
+    res.send({
+      user: req.user,
+      testMessage: "유저의 학습 리스트를 업데이트했습니다.",
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ errorMessage: "서버 내부 오류입니다." });
+  }
+});
 
 module.exports = router;
