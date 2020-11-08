@@ -50,6 +50,23 @@ router.get("/detail/:id", isLoggedIn, async (req, res, next) => {
   }
 });
 
-// 게시판 추가 라우터 추가
+// 댓글 추가 라우터
+
+// 게시판 추가 라우터
+router.post("/add", isLoggedIn, async (req, res) => {
+  const { title, content } = req.body;
+  try {
+    await Board.create({
+      title,
+      content,
+      userId: req.user.id,
+    });
+
+    res.redirect("/talk");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ errorMessage: "서버 내부 오류입니다." });
+  }
+});
 
 module.exports = router;
