@@ -10,6 +10,21 @@ router.get("/", (req, res, next) => {
 });
 
 // 레벨 테스트 문제 클릭
+router.get("/:level", isLoggedIn, async (req, res, next) => {
+  try {
+    const result = await Drill.findAll({
+      where: {
+        level: req.params.level,
+      },
+      attributes: ["content", "image"],
+    });
+
+    res.send({ result: result });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ errorMessage: "서버 내부 오류입니다." });
+  }
+});
 
 // 레벨 테스트 정답 확인
 
