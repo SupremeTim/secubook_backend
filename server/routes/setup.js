@@ -80,15 +80,7 @@ router.get("/", async (req, res, next) => {
       image:
         "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
     });
-    res.send({ testMessage: "더미데이터 추가 완료" });
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-});
 
-router.get("/add", async (req, res, next) => {
-  try {
     Education.create({
       title: "XML조회-및-결과-검증",
       category: 0,
@@ -213,7 +205,34 @@ router.get("/add", async (req, res, next) => {
       image:
         "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
     });
+    res.send({ testMessage: "더미데이터 추가 완료" });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
 
+router.get("/add", async (req, res, next) => {
+  try {
+    Drill.create({
+      title: "XML조회-및-결과-검증",
+      type: 0,
+      level: 0,
+      content: "test입니다.",
+      image:
+        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+      answer: "정답입니다",
+    });
+
+    Drill.create({
+      title: "XML조회-및-결과-검증",
+      type: 0,
+      level: 0,
+      content: "test입니다.",
+      image:
+        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+      answer: "정답입니다",
+    });
     res.send({ testMessage: "더미데이터 추가 완료" });
   } catch (error) {
     console.error(error);
