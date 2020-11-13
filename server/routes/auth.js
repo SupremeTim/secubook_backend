@@ -33,6 +33,8 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
       email,
       password: hash,
       level: 1,
+      studyList: "",
+      codingList: "",
       dockerPort: 80,
     });
 
