@@ -72,15 +72,14 @@ router.get("/test/:type", isLoggedIn, async (req, res, next) => {
 });
 
 // 문제 풀기 버튼
-router.post("/check/:type", isLoggedIn, async (req, res, next) => {
-  const { title } = req.query;
-  const { userAnswer } = req.body;
+router.post("/check", isLoggedIn, async (req, res, next) => {
+  const { userAnswer, title, type } = req.body;
 
   try {
     const result = await Drill.findAll({
       where: {
         title: title,
-        type: req.params.type,
+        type: type,
       },
       attributes: ["answer"],
     });
@@ -91,30 +90,27 @@ router.post("/check/:type", isLoggedIn, async (req, res, next) => {
       const element2 = result[index].answer;
 
       if (element1 != element2) {
-        res.status(200).send({
+        return res.status(200).send({
           result: "틀렸습니다.",
         });
       }
     }
 
-    const u = await User.findOne({
-      where: { id: req.user.id },
-      attributes: ["studyList"],
-    });
-
-    await User.update(
-      {
-        studyList: u.studyList + "," + title + "/" + req.params.type,
-      },
-      {
-        where: {
-          id: req.user.id,
+    const newValue = title + "/" + type;
+    if (!req.user.studyList.includes(newValue)) {
+      await User.update(
+        {
+          studyList: req.user.studyList + "," + newValue,
         },
-      }
-    );
+        {
+          where: {
+            id: req.user.id,
+          },
+        }
+      );
+    }
 
-    res.send({
-      user: req.user,
+    return res.send({
       result: "모두 맞았습니다.",
       testMessage: "유저의 학습 리스트를 업데이트했습니다.",
     });
