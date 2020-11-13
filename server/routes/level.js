@@ -10,11 +10,12 @@ router.get("/", (req, res, next) => {
 });
 
 // 레벨 테스트 문제 클릭
-router.get("/:level", isLoggedIn, async (req, res, next) => {
+router.post("/test", isLoggedIn, async (req, res, next) => {
+  const { level } = req.body;
   try {
     const result = await Drill.findAll({
       where: {
-        level: req.params.level,
+        level: level,
       },
       attributes: ["content", "image"],
     });
