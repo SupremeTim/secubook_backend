@@ -29,31 +29,23 @@ router.get("/", async (req, res, next) => {
 });
 
 // 문제 클릭 라우터
-router.get("/:problemNumber", async (req, res, next) => {
+router.get("/:problemNumber", isLoggedIn, async (req, res, next) => {
   try {
-    let problemNumber = req.params.problemNumber
-    console.log(problemNumber)
+    let problemNumber = req.params.problemNumber;
+    // console.log(problemNumber);
 
     const results = await CodingTest.findOne({
-      attributes: [
-        "id", 
-        "category",
-        "title",
-        "content"
-      ],
+      attributes: ["content", "image"],
       where: {
         id: problemNumber,
       },
     });
 
-
-    console.log(results);
+    // console.log(results);
 
     res.send({
-      user: req.user,
-      status : 200,
-      message: "문제 상세 조회",
-      data: results
+      testMessage: "문제 상세 조회",
+      results: results,
     });
   } catch (error) {
     console.error(error);
@@ -65,10 +57,10 @@ router.get("/:problemNumber", async (req, res, next) => {
 router.post("/:problemNumber", async (req, res, next) => {
   const { email, userCode } = req.body;
   try {
-    let problemNumber = req.params.problemNumber
-    console.log(problemNumber)
-    console.log(email)
-    console.log(userCode)
+    let problemNumber = req.params.problemNumber;
+    console.log(problemNumber);
+    console.log(email);
+    console.log(userCode);
 
     // Todo
     // home/ubuntu/user/userCode/[email]/problem[problemNumber].java를
@@ -86,6 +78,5 @@ router.post("/:problemNumber", async (req, res, next) => {
     return res.status(500).send({ errorMessage: error });
   }
 });
-
 
 module.exports = router;
