@@ -20,11 +20,11 @@ module.exports = (sequelize, DataTypes) =>
         allowNull: false,
       },
       studyList: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(500),
         allowNull: true,
       },
       codingList: {
-        type: DataTypes.STRING(100),
+        type: DataTypes.STRING(500),
         allowNull: true,
       },
       dockerPort: {
