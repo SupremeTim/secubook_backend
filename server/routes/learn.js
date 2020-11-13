@@ -102,12 +102,16 @@ router.post("/check/:type", isLoggedIn, async (req, res, next) => {
       attributes: ["studyList"],
     });
 
-    await User.update({
-      studyList: u.studyList + "," + title + "/" + req.params.type,
-      where: {
-        id: req.user.id,
+    await User.update(
+      {
+        studyList: u.studyList + "," + title + "/" + req.params.type,
       },
-    });
+      {
+        where: {
+          id: req.user.id,
+        },
+      }
+    );
 
     res.send({
       user: req.user,
