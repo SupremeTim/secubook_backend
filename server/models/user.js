@@ -17,15 +17,15 @@ module.exports = (sequelize, DataTypes) =>
       },
       level: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        defaultValue: 0,
       },
       studyList: {
         type: DataTypes.STRING(500),
-        allowNull: true,
+        defaultValue: "",
       },
       codingList: {
         type: DataTypes.STRING(500),
-        allowNull: true,
+        defaultValue: "",
       },
       dockerPort: {
         type: DataTypes.INTEGER,
