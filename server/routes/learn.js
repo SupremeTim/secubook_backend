@@ -85,17 +85,17 @@ router.post("/check/:type", isLoggedIn, async (req, res, next) => {
       attributes: ["answer"],
     });
 
-    res.send({ r: result });
-    // for (let index = 0; index < userAnswer.length; index++) {
-    //   const element1 = userAnswer[index];
-    //   const element2 = result.answer[index];
+    // res.send({ r: result });
+    for (let index = 0; index < userAnswer.length; index++) {
+      const element1 = userAnswer[index];
+      const element2 = result[index].answer;
 
-    //   if (element1 != element2) {
-    //     res.status(200).send({
-    //       result: "틀렸습니다.",
-    //     });
-    //   }
-    // }
+      if (element1 != element2) {
+        res.status(200).send({
+          result: "틀렸습니다.",
+        });
+      }
+    }
 
     const u = await User.findOne({
       where: { id: req.user.id },
