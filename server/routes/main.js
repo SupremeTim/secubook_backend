@@ -26,21 +26,25 @@ router.get("/mypage", async (req, res, next) => {
       order: [["createdAt", "DESC"]],
     });
 
-    // 코딩테스트 정보 보내주기 추가 필요
-
     // studys에는 title/category 형식으로 들어가 있음
     // ex) ["SQL-Injection/0","XSS/1"]
+    // codings에는 title/id 형식으로 들어가 있음
+    // ex) ["문제1/1","문제2/2"]
+
     res.send({
       user: req.user,
       name: name,
       level: level,
       boards: boardResult,
       studys: sList,
+      codings: cList,
     });
   } catch (error) {
     console.error(error);
     res.status(500).send({ errorMessage: "서버 내부 오류" });
   }
 });
+
+// 공부했던 내용 클릭해서 다시 확인하도록 해야하나???
 
 module.exports = router;
