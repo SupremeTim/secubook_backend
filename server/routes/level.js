@@ -12,6 +12,41 @@ router.get("/", (req, res, next) => {
 // 레벨 테스트 문제 클릭
 router.post("/test", isLoggedIn, async (req, res, next) => {
   const { level } = req.body;
+
+  // 교육 이수 여부에 따라 하고 못하고 정하기!!!
+  switch (level) {
+    case 1:
+      if (
+        !(
+          req.user.codingList.includes("크로스-사이트-스크립팅/0") &&
+          req.user.codingList.includes("웹-서비스-요청-및-결과-검증/0")
+        )
+      ) {
+        return res.send({
+          result: "이수 조건을 만족하지 못해 진행할 수 없습니다.",
+        });
+      }
+      break;
+    case 2:
+      if (
+        !(
+          req.user.codingList.includes("크로스-사이트-스크립팅/0") &&
+          req.user.codingList.includes("웹-서비스-요청-및-결과-검증/0") &&
+          req.user.codingList.includes("SQL-INJECTION/0") &&
+          req.user.codingList.includes("DBMS-조회-및-결과-검증/1") &&
+          req.user.codingList.includes("XML조회-및-결과-검증/1")
+        )
+      ) {
+        return res.send({
+          result: "이수 조건을 만족하지 못해 진행할 수 없습니다.",
+        });
+      }
+      break;
+
+    default:
+      break;
+  }
+
   try {
     const result = await Drill.findAll({
       where: {
@@ -20,10 +55,10 @@ router.post("/test", isLoggedIn, async (req, res, next) => {
       attributes: ["content", "image"],
     });
 
-    res.send({ result: result });
+    return res.send({ result: result });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ errorMessage: "서버 내부 오류입니다." });
+    return res.status(500).send({ errorMessage: "서버 내부 오류입니다." });
   }
 });
 
@@ -70,7 +105,7 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ errorMessage: "서버 내부 오류입니다." });
+    return res.status(500).send({ errorMessage: "서버 내부 오류입니다." });
   }
 });
 
