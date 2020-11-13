@@ -51,6 +51,22 @@ router.get("/detail/:id", isLoggedIn, async (req, res, next) => {
 });
 
 // 댓글 추가 라우터
+router.post("/comment", isLoggedIn, async (req, res) => {
+  const { content, boardId } = req.body;
+
+  try {
+    await Comment.create({
+      host: req.user.name,
+      content,
+      boardId,
+    });
+
+    res.redirect("/talk/detail/" + boardId);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ errorMessage: "서버 내부 오류입니다." });
+  }
+});
 
 // 게시판 추가 라우터
 router.post("/add", isLoggedIn, async (req, res) => {
