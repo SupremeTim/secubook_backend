@@ -116,7 +116,7 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
     });
   } catch (error) {
     console.error(error);
-    res.status(500).send({ errorMessage: "서버 내부 오류입니다." });
+    return res.status(500).send({ errorMessage: "서버 내부 오류입니다." });
   }
 });
 
