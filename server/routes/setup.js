@@ -205,15 +205,7 @@ router.get("/", async (req, res, next) => {
       image:
         "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
     });
-    res.send({ testMessage: "더미데이터 추가 완료" });
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-});
 
-router.get("/add", async (req, res, next) => {
-  try {
     Drill.create({
       title: "XML조회-및-결과-검증",
       type: 0,
@@ -232,6 +224,54 @@ router.get("/add", async (req, res, next) => {
       image:
         "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
       answer: "정답입니다",
+    });
+    res.send({ testMessage: "더미데이터 추가 완료" });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+router.get("/add", async (req, res, next) => {
+  try {
+    Drill.create({
+      title: "레벨테스트1",
+      type: 0,
+      level: 1,
+      content: "level1 test입니다.",
+      image:
+        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+      answer: "1",
+    });
+
+    Drill.create({
+      title: "레벨테스트1",
+      type: 0,
+      level: 1,
+      content: "level1 test입니다.",
+      image:
+        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+      answer: "2",
+    });
+
+    Drill.create({
+      title: "레벨테스트2",
+      type: 0,
+      level: 2,
+      content: "level2 test입니다.",
+      image:
+        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+      answer: "1",
+    });
+
+    Drill.create({
+      title: "레벨테스트3",
+      type: 0,
+      level: 3,
+      content: "level3 test입니다.",
+      image:
+        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+      answer: "1",
     });
     res.send({ testMessage: "더미데이터 추가 완료" });
   } catch (error) {
