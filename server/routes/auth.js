@@ -35,12 +35,12 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
       dockerPort: 80,
     });
 
-    shell.cd("/home/ubuntu/secubook_problem");
+    // shell.cd("/home/ubuntu/secubook_problem");
 
-    if (shell.exec("./create_container.sh " + email).code !== 0) {
-      shell.echo("Error: command failed");
-      shell.exit(1);
-    }
+    // if (shell.exec("./create_container.sh " + email).code !== 0) {
+    //   shell.echo("Error: command failed");
+    //   shell.exit(1);
+    // }
     // // ********* 양시연 서버에서 돌려보기 용 ***********
     // shell.cd("~/secubook_problem");
 
