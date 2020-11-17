@@ -2,3 +2,4 @@ server/combined log
 server/*.log
 server/node_modules
 server/.env
+front/*
