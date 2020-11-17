@@ -38,6 +38,7 @@ router.post("/test", isLoggedIn, async (req, res, next) => {
         )
       ) {
         return res.send({
+          user: req.user,
           result: "이수 조건을 만족하지 못해 진행할 수 없습니다.",
         });
       }
@@ -55,7 +56,10 @@ router.post("/test", isLoggedIn, async (req, res, next) => {
       attributes: ["content", "image"],
     });
 
-    return res.send({ result: result });
+    return res.send({
+      user: req.user,
+      result: result,
+    });
   } catch (error) {
     console.error(error);
     return res.status(500).send({ errorMessage: "서버 내부 오류입니다." });
@@ -81,6 +85,7 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
 
       if (element1 != element2) {
         return res.status(200).send({
+          user: req.user,
           result: "틀렸습니다.",
         });
       }
@@ -100,6 +105,7 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
     }
 
     return res.send({
+      user: req.user,
       result: "모두 맞았습니다.",
       testMessage: "유저의 레벨을 업데이트했습니다.",
     });

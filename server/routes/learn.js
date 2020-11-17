@@ -91,6 +91,7 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
 
       if (element1 != element2) {
         return res.status(200).send({
+          user: req.user,
           result: "틀렸습니다.",
         });
       }
@@ -111,6 +112,7 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
     }
 
     return res.send({
+      user: req.user,
       result: "모두 맞았습니다.",
       testMessage: "유저의 학습 리스트를 업데이트했습니다.",
     });
