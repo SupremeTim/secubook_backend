@@ -12,11 +12,11 @@ router.get("/", (req, res, next) => {
   res.send({ user: req.user, test: "테스트" });
 });
 
-router.get("/main", (req, res, next) => {
-  res.send(
-    express.static(path.join(__dirname, "../../front/build/index.html"))
-  );
-});
+// router.get("/main", (req, res, next) => {
+//   res.send(
+//     express.static(path.join(__dirname, "../../front/build/index.html"))
+//   );
+// });
 
 // 로그인 미들웨어 추가 필요
 router.get("/mypage", async (req, res, next) => {

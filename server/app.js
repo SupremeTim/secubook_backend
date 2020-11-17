@@ -28,7 +28,7 @@ sequelize.sync();
 passportConfig(passport);
 
 // Views 폴더 및 pug 설정
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "../front/build"));
 app.set("view engine", "pug");
 app.set("port", process.env.PORT || 8001);
 
