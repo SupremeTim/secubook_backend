@@ -1,4 +1,5 @@
 const express = require("express");
+const path = require("path");
 const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
 const { Education, CodingTest, Board } = require("../models");
 
@@ -9,6 +10,12 @@ router.get("/", (req, res, next) => {
   // console.log("메인 라우터입니다.");
   // console.log(req.user);
   res.send({ user: req.user, test: "테스트" });
+});
+
+router.get("/main", (req, res, next) => {
+  res.send(
+    express.static(path.join(__dirname, "../../front/build/index.html"))
+  );
 });
 
 // 로그인 미들웨어 추가 필요
