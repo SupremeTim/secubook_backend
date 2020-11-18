@@ -225,15 +225,7 @@ router.get("/", async (req, res, next) => {
         "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
       answer: "정답입니다",
     });
-    res.send({ testMessage: "더미데이터 추가 완료" });
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-});
 
-router.get("/add", async (req, res, next) => {
-  try {
     Drill.create({
       title: "레벨테스트1",
       type: 0,
@@ -272,6 +264,33 @@ router.get("/add", async (req, res, next) => {
       image:
         "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
       answer: "1",
+    });
+    res.send({ testMessage: "더미데이터 추가 완료" });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+router.get("/add", async (req, res, next) => {
+  try {
+    CodingTest.create({
+      title: "Sql injection 1",
+      content:
+        "다음과 같이 user 테이블과 데이터가 일부 주어졌다. position이 Manager인 user의 firstname을 안전하게 불러오도록 코딩하시오.",
+      category: 0,
+      level: 1,
+      image:
+        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/그림1.png",
+    });
+
+    CodingTest.create({
+      title: "암호화 1",
+      content:
+        "파라미터로 전달되는 msg를 암호화 알고리즘으로 암호화 하려 한다. 현재 안전하지 않은 암호 알고리즘이 적용되어 있는 코드를 안전한 암호 알고리즘이 적용되도록 수정하시오.",
+      category: 0,
+      level: 1,
+      image: "",
     });
     res.send({ testMessage: "더미데이터 추가 완료" });
   } catch (error) {
