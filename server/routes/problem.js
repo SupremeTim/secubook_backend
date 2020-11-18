@@ -54,13 +54,12 @@ router.get("/:problemNumber", isLoggedIn, async (req, res, next) => {
 });
 
 // 문제 채점 라우터
-router.post("/:problemNumber", async (req, res, next) => {
-  const { email, userCode } = req.body;
+router.post("/check", async (req, res, next) => {
+  const { userCode, problemNumber, time } = req.body;
   try {
-    let problemNumber = req.params.problemNumber;
-    console.log(problemNumber);
-    console.log(email);
-    console.log(userCode);
+    // 시간초 측정!!!
+    const today = new Date();
+    console.log(today.format("yyy-MM-dd HH:mm:ss"));
 
     // Todo
     // home/ubuntu/user/userCode/[email]/problem[problemNumber].java를
@@ -69,13 +68,14 @@ router.post("/:problemNumber", async (req, res, next) => {
     // 사용자 도커 컨테이너로 채점
     // ./score-code.sh [email] [problemNumber]
 
-    // log 파일 분석 후 결과 전송
+    // log 저장 방식 : 연도(yyyy-MM-dd HH:mm:ss) 시간 아이디 문제번호 정답여부(0/1)
+    // log.txt 파일 분석 후 결과 전송 -> 현재 시간 측정 후 그 이후 첫번째꺼
+    // 결과에 따라 유저의 codingTest 리스트 수정
 
-    return res.redirect("/");
+    res.send({});
   } catch (error) {
     console.error(error);
-    // return next(error);
-    return res.status(500).send({ errorMessage: error });
+    res.status(500).send({ errorMessage: "서버 내부 오류" });
   }
 });
 
