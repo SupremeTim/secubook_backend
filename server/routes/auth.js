@@ -83,6 +83,15 @@ router.get("/logout", isLoggedIn, (req, res) => {
   req.logout();
   req.session.destroy();
   res.redirect("/");
+  req.session.destroy(() => {
+    //세션 파괴
+    res.clearCookie("connect.sid");
+    //쿠키 삭제
+    res.redirect("/");
+    //홈으로 redirect
+  });
+
+  // 출처: https://andwinter.tistory.com/344 [index.html]
 });
 
 module.exports = router;
