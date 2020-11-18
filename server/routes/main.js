@@ -9,7 +9,9 @@ router.get("/", (req, res, next) => {
   // console.log("check");
   // console.log("메인 라우터입니다.");
   // console.log(req.user);
+  console.log(req.cookies);
   res.send({ user: req.user, test: "테스트" });
+  // res.render("main", { user: req.user, test: "test" });
 });
 
 // router.get("/main", (req, res, next) => {
