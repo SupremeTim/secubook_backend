@@ -21,7 +21,7 @@ router.get("/", (req, res, next) => {
 // });
 
 // 로그인 미들웨어 추가 필요
-router.get("/mypage", async (req, res, next) => {
+router.get("/mypage", isLoggedIn, async (req, res, next) => {
   const { name, level, studyList, codingList } = req.user;
   const sList = studyList.split(",");
   const cList = codingList.split(",");
