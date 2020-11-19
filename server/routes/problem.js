@@ -221,7 +221,7 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
               // 평균 값 업데이트
               await CodingTest.update(
                 {
-                  timeAverage: result / allTimes.length,
+                  timeAverage: allTimeNum / allTimes.length,
                 },
                 {
                   where: {

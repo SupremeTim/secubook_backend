@@ -18,8 +18,8 @@ router.post("/test", isLoggedIn, async (req, res, next) => {
     case 1:
       if (
         !(
-          req.user.codingList.includes("크로스-사이트-스크립팅/0") &&
-          req.user.codingList.includes("웹-서비스-요청-및-결과-검증/0")
+          req.user.studyList.includes("크로스-사이트-스크립팅/0") &&
+          req.user.studyList.includes("웹-서비스-요청-및-결과-검증/0")
         )
       ) {
         return res.send({
@@ -30,11 +30,11 @@ router.post("/test", isLoggedIn, async (req, res, next) => {
     case 2:
       if (
         !(
-          req.user.codingList.includes("크로스-사이트-스크립팅/0") &&
-          req.user.codingList.includes("웹-서비스-요청-및-결과-검증/0") &&
-          req.user.codingList.includes("SQL-INJECTION/0") &&
-          req.user.codingList.includes("DBMS-조회-및-결과-검증/1") &&
-          req.user.codingList.includes("XML조회-및-결과-검증/1")
+          req.user.studyList.includes("크로스-사이트-스크립팅/0") &&
+          req.user.studyList.includes("웹-서비스-요청-및-결과-검증/0") &&
+          req.user.studyList.includes("SQL-INJECTION/0") &&
+          req.user.studyList.includes("DBMS-조회-및-결과-검증/1") &&
+          req.user.studyList.includes("XML조회-및-결과-검증/1")
         )
       ) {
         return res.send({
