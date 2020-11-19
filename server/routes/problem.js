@@ -184,10 +184,10 @@ router.post("/check", async (req, res, next) => {
               });
 
               // 걸린 시간 총 합 구하기
-              var result = 0;
+              var allTimeNum = 0;
               for (let index = 0; index < allTimes.length; index++) {
                 const element = allTimes[index].time;
-                result += element;
+                allTimeNum += element;
               }
 
               // 평균 값 업데이트
