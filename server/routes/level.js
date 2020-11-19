@@ -16,6 +16,10 @@ router.post("/test", isLoggedIn, async (req, res, next) => {
   // 교육 이수 여부에 따라 하고 못하고 정하기!!!
   switch (level) {
     case 1:
+      console.log(
+        req.user.studyList.includes("크로스-사이트-스크립팅/0") &&
+          req.user.studyList.includes("웹-서비스-요청-및-결과-검증/0")
+      );
       if (
         !(
           req.user.studyList.includes("크로스-사이트-스크립팅/0") &&
