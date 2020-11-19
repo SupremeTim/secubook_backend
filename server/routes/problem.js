@@ -62,22 +62,21 @@ router.post("/check", async (req, res, next) => {
   try {
     // 시간초 측정!!!
     const today = new Date();
-    console.log(dateFormat(today, "yyyy-mm-dd HH:mm:ss"));
 
-    // Todo
+    // Todo 1
     // home/ubuntu/user/userCode/[email]/problem[problemNumber].java를
     // userCode로 덮어쓰기
 
     // 배포용
-    // shell.mkdir("/home/ubuntu/user/userCode/" + req.user.email);
-    // const targetPath =
-    //   "/home/ubuntu/user/userCode/" +
-    //   req.user.email +
-    //   "problem" +
-    //   problemNumber +
-    //   ".java";
-    // shell.touch(targetPath);
-    // shell.echo(userCode).to(targetPath);
+    shell.mkdir("/home/ubuntu/user/userCode/" + req.user.email);
+    const targetPath =
+      "/home/ubuntu/user/userCode/" +
+      req.user.email +
+      "problem" +
+      problemNumber +
+      ".java";
+    shell.touch(targetPath);
+    shell.echo(userCode).to(targetPath);
 
     // 로컬용
     // shell.mkdir("~/test");
@@ -85,29 +84,67 @@ router.post("/check", async (req, res, next) => {
     // shell.touch(path);
     // shell.echo(userCode).to(path);
 
+    // Todo 2
     // 사용자 도커 컨테이너로 채점
     // ./score-code.sh [email] [problemNumber]
 
-    // shell.cd("/home/ubuntu/secubook_problem");
-    // if (
-    //   shell.exec("./score_code.sh " + req.user.email + " " + problemNumber)
-    //     .code !== 0
-    // ) {
-    //   shell.echo("Error: command failed");
-    //   shell.exit(1);
-    // }
+    shell.cd("/home/ubuntu/secubook_problem");
+    if (
+      shell.exec("./score_code.sh " + req.user.email + " " + problemNumber)
+        .code !== 0
+    ) {
+      shell.echo("Error: command failed");
+      shell.exit(1);
+    }
 
+    // Todo 3
     // log 저장 방식 : 연도(yyyy-MM-dd HH:mm:ss) 시간 아이디 문제번호 정답여부(0/1)
     // log.txt 파일 분석 후 결과 전송 -> 현재 시간 측정 후 그 이후 첫번째꺼
     // 결과에 따라 유저의 codingTest 리스트 수정
 
-    const data = fs.readFileSync("/Users/cho/test/무제.txt", "utf8");
-    console.log(data);
+    // const data = fs.readFileSync("/Users/cho/test/무제.txt", "utf8");
+    // console.log(data);
+    const data = fs.readFileSync(
+      "/home/ubuntu/secubook/log/score/log.txt",
+      "utf8"
+    );
+    const result = data.split("\n");
+    // console.log(result);
+    const now = dateFormat(today, "yyyy-mm-dd HH:mm:ss").split(" ");
+    const d = new Date(now[0] + " " + now[1]);
 
-    res.send({});
+    for (let index = 0; index < result.length; index++) {
+      const element = result[index];
+      // console.log(element);
+      const dataArr = element.split(" ");
+      const targetD = new Date(dataArr[0] + " " + dataArr[1]);
+      if (dataArr[2] == req.user.email && dataArr[3] == String(problemNumber)) {
+        if (targetD.getTime() >= d.getTime()) {
+          if (dataArr[4] == 0) {
+            // console.log("틀림");
+            return res.send({ result: "틀렸습니다." });
+          } else {
+            // console.log("맞음");
+            if (!req.user.codingList.includes(problemNumber)) {
+              await User.update(
+                {
+                  studyList: req.user.codingList + "," + problemNumber,
+                },
+                {
+                  where: {
+                    id: req.user.id,
+                  },
+                }
+              );
+            }
+            return res.send({ result: "맞았습니다." });
+          }
+        }
+      }
+    }
   } catch (error) {
     console.error(error);
-    res.status(500).send({ errorMessage: "서버 내부 오류" });
+    return res.status(500).send({ errorMessage: "서버 내부 오류" });
   }
 });
 
