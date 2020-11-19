@@ -1,6 +1,6 @@
 const express = require("express");
 const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
-const { CodingTest, User } = require("../models");
+const { CodingTest, User, TimeInfo } = require("../models");
 const shell = require("shelljs"); //https://backback.tistory.com/361 [Back Ground
 const fs = require("fs");
 const dateFormat = require("dateformat");
@@ -97,6 +97,22 @@ router.post("/check", async (req, res, next) => {
       shell.exit(1);
     }
 
+    // 현재 문제 정보 가져옴
+    const problem = await CodingTest.findOne({
+      where: { id: problemNumber },
+    });
+    // 현재 문제 실행 횟수 업데이트
+    await CodingTest.update(
+      {
+        cntOfRun: problem.cntOfRun + 1,
+      },
+      {
+        where: {
+          id: problemNumber,
+        },
+      }
+    );
+
     // Todo 3
     // log 저장 방식 : 연도(yyyy-MM-dd HH:mm:ss) 시간 아이디 문제번호 정답여부(0/1)
     // log.txt 파일 분석 후 결과 전송 -> 현재 시간 측정 후 그 이후 첫번째꺼
@@ -125,6 +141,69 @@ router.post("/check", async (req, res, next) => {
             return res.send({ result: "틀렸습니다." });
           } else {
             // console.log("맞음");
+
+            // 현재 문제 정답 수 업데이트
+            await CodingTest.update(
+              {
+                cntOfSolve: problem.cntOfSolve + 1,
+              },
+              {
+                where: {
+                  id: problemNumber,
+                },
+              }
+            );
+
+            // 현재 문제 푸는 걸린 시간 정보 삽입
+            await TimeInfo.create({
+              time: time,
+              codingTestId: problemNumber,
+            });
+
+            // 현재 문제 푸는데 걸린 평균 시간 업데이트
+            // 아무것도 없다면
+            if (problem.timeAverage == null) {
+              await CodingTest.update(
+                {
+                  timeAverage: time,
+                },
+                {
+                  where: {
+                    id: problemNumber,
+                  },
+                }
+              );
+              // 뭔가 하나라도 있다면
+            } else {
+              // 이 문제와 관련된 모든 시간 정보 가져옴
+              const allTimes = await TimeInfo.findAll({
+                where: {
+                  codingTestId: problemNumber,
+                },
+                attributes: ["time"],
+              });
+
+              // 걸린 시간 총 합 구하기
+              var result = 0;
+              for (let index = 0; index < allTimes.length; index++) {
+                const element = allTimes[index].time;
+                result += element;
+              }
+
+              // 평균 값 업데이트
+              await CodingTest.update(
+                {
+                  timeAverage: result / allTimes.length,
+                },
+                {
+                  where: {
+                    id: problemNumber,
+                  },
+                }
+              );
+            }
+
+            // 사용자 정보 업데이트
             if (!req.user.codingList.includes(problemNumber)) {
               await User.update(
                 {
