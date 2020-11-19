@@ -71,25 +71,25 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
   const { userAnswer, level } = req.body;
 
   try {
-    const result = await Drill.findAll({
-      where: {
-        level: level,
-      },
-      attributes: ["answer"],
-    });
+    // const result = await Drill.findAll({
+    //   where: {
+    //     level: level,
+    //   },
+    //   attributes: ["answer"],
+    // });
 
     // res.send({ r: result });
-    for (let index = 0; index < userAnswer.length; index++) {
-      const element1 = userAnswer[index];
-      const element2 = result[index].answer;
+    // for (let index = 0; index < userAnswer.length; index++) {
+    //   const element1 = userAnswer[index];
+    //   const element2 = result[index].answer;
 
-      if (element1 != element2) {
-        return res.status(200).send({
-          user: req.user,
-          result: "틀렸습니다.",
-        });
-      }
-    }
+    //   if (element1 != element2) {
+    //     return res.status(200).send({
+    //       user: req.user,
+    //       result: "틀렸습니다.",
+    //     });
+    //   }
+    // }
 
     if (req.user.level < level) {
       await User.update(
@@ -106,7 +106,7 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
 
     return res.send({
       user: req.user,
-      result: "모두 맞았습니다.",
+      // result: "모두 맞았습니다.",
       testMessage: "유저의 레벨을 업데이트했습니다.",
     });
   } catch (error) {
