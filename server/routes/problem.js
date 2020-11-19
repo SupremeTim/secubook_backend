@@ -46,16 +46,28 @@ router.get("/:problemNumber", isLoggedIn, async (req, res, next) => {
 
     // console.log(results);
 
-    // 코드 불러오기
-    const data = fs.readFileSync(
-      "/home/ubuntu/secubook/user/userCode/" +
-        req.user.email +
-        "problem" +
-        problemNumber +
-        ".java",
-      "utf8"
-    );
+    // 코드 불러오기(배포)
+    // const data = fs.readFileSync(
+    //   "/home/ubuntu/secubook/user/userCode/" +
+    //     req.user.email +
+    //     "/workspace/problems/" +
+    //     "problem" +
+    //     problemNumber +
+    //     ".java",
+    //   "utf8"
+    // );
 
+    const data = `if (!file.isEmpty()) {
+      String fileName = file.getOriginalFilename();
+      
+      String successMessage = "File successfully uploaded";
+          modelData.put("fileName", fileName);
+          modelData.put("uploadMessage", successMessage);
+          savefile(file);
+      
+      return new ModelAndView("uploadForm", modelData);
+      
+      }`;
     res.send({
       testMessage: "문제 상세 조회",
       results: results,
@@ -79,10 +91,15 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
     // userCode로 덮어쓰기
 
     // 배포용
-    shell.mkdir("/home/ubuntu/secubook/user/userCode/" + req.user.email);
+    shell.mkdir(
+      "/home/ubuntu/secubook/user/userCode/" +
+        req.user.email +
+        "/workspace/problems/"
+    );
     const targetPath =
       "/home/ubuntu/secubook/user/userCode/" +
       req.user.email +
+      "/workspace/problems/" +
       "problem" +
       problemNumber +
       ".java";
