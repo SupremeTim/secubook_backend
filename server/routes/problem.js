@@ -57,7 +57,7 @@ router.get("/:problemNumber", isLoggedIn, async (req, res, next) => {
 });
 
 // 문제 채점 라우터
-router.post("/check", async (req, res, next) => {
+router.post("/check", isLoggedIn, async (req, res, next) => {
   const { userCode, problemNumber, time } = req.body;
   try {
     // 시간초 측정!!!
