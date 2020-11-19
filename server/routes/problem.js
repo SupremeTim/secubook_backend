@@ -46,9 +46,20 @@ router.get("/:problemNumber", isLoggedIn, async (req, res, next) => {
 
     // console.log(results);
 
+    // 코드 불러오기
+    const data = fs.readFileSync(
+      "/home/ubuntu/secubook/user/userCode/" +
+        req.user.email +
+        "problem" +
+        problemNumber +
+        ".java",
+      "utf8"
+    );
+
     res.send({
       testMessage: "문제 상세 조회",
       results: results,
+      code: data,
     });
   } catch (error) {
     console.error(error);
@@ -64,18 +75,18 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
     const today = new Date();
 
     // Todo 1
-    // home/ubuntu/user/userCode/[email]/problem[problemNumber].java를
+    // home/ubuntu/secubook/user/userCode/[email]/problem[problemNumber].java를
     // userCode로 덮어쓰기
 
     // 배포용
-    shell.mkdir("/home/ubuntu/user/userCode/" + req.user.email);
+    shell.mkdir("/home/ubuntu/secubook/user/userCode/" + req.user.email);
     const targetPath =
-      "/home/ubuntu/user/userCode/" +
+      "/home/ubuntu/secubook/user/userCode/" +
       req.user.email +
       "problem" +
       problemNumber +
       ".java";
-    shell.touch(targetPath);
+    // shell.touch(targetPath);
     shell.echo(userCode).to(targetPath);
 
     // 로컬용
