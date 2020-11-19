@@ -1,6 +1,9 @@
 const express = require("express");
 const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
-const { CodingTest } = require("../models");
+const { CodingTest, User } = require("../models");
+const shell = require("shelljs"); //https://backback.tistory.com/361 [Back Ground
+const fs = require("fs");
+const dateFormat = require("dateformat");
 
 const router = express.Router();
 
@@ -59,18 +62,47 @@ router.post("/check", async (req, res, next) => {
   try {
     // 시간초 측정!!!
     const today = new Date();
-    console.log(today.format("yyy-MM-dd HH:mm:ss"));
+    console.log(dateFormat(today, "yyyy-mm-dd HH:mm:ss"));
 
     // Todo
     // home/ubuntu/user/userCode/[email]/problem[problemNumber].java를
     // userCode로 덮어쓰기
 
+    // 배포용
+    // shell.mkdir("/home/ubuntu/user/userCode/" + req.user.email);
+    // const targetPath =
+    //   "/home/ubuntu/user/userCode/" +
+    //   req.user.email +
+    //   "problem" +
+    //   problemNumber +
+    //   ".java";
+    // shell.touch(targetPath);
+    // shell.echo(userCode).to(targetPath);
+
+    // 로컬용
+    // shell.mkdir("~/test");
+    // const path = "~/test/problem" + problemNumber + ".java";
+    // shell.touch(path);
+    // shell.echo(userCode).to(path);
+
     // 사용자 도커 컨테이너로 채점
     // ./score-code.sh [email] [problemNumber]
+
+    // shell.cd("/home/ubuntu/secubook_problem");
+    // if (
+    //   shell.exec("./score_code.sh " + req.user.email + " " + problemNumber)
+    //     .code !== 0
+    // ) {
+    //   shell.echo("Error: command failed");
+    //   shell.exit(1);
+    // }
 
     // log 저장 방식 : 연도(yyyy-MM-dd HH:mm:ss) 시간 아이디 문제번호 정답여부(0/1)
     // log.txt 파일 분석 후 결과 전송 -> 현재 시간 측정 후 그 이후 첫번째꺼
     // 결과에 따라 유저의 codingTest 리스트 수정
+
+    const data = fs.readFileSync("/Users/cho/test/무제.txt", "utf8");
+    console.log(data);
 
     res.send({});
   } catch (error) {
