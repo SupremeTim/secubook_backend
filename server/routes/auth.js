@@ -17,6 +17,24 @@ router.get("/register", isNotLoggedIn, async (req, res, next) => {
 
 router.post("/join", isNotLoggedIn, async (req, res, next) => {
   const { name, email, password } = req.body;
+
+  // 배포용
+  // shell.cd("/home/ubuntu/secubook_problem");
+
+  // if (shell.exec("./create_container.sh " + email).code !== 0) {
+  //   shell.echo("Error: command failed");
+  //   shell.exit(1);
+  // }
+
+  // 로컬용
+  // // ********* 양시연 서버에서 돌려보기 용 ***********
+  shell.cd("~/secubook_problem");
+
+  if (shell.exec("./create_container.sh " + email).code !== 0) {
+    shell.echo("Error: command failed");
+    shell.exit(1);
+  }
+
   try {
     const exUser = await User.findOne({ where: { email: email } });
 
@@ -35,22 +53,8 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
       dockerPort: 80,
     });
 
-    shell.cd("/home/ubuntu/secubook_problem");
-
-    if (shell.exec("./create_container.sh " + email).code !== 0) {
-      shell.echo("Error: command failed");
-      shell.exit(1);
-    }
-    // // ********* 양시연 서버에서 돌려보기 용 ***********
-    // shell.cd("~/secubook_problem");
-
-    // if (shell.exec("./create_container.sh " + email).code !== 0) {
-    //   shell.echo("Error: command failed");
-    //   shell.exit(1);
-    // }
-
-    // return res.redirect("/");
-    return res.send({ testMessage: "회원가입 완료" });
+    return res.redirect("/");
+    // return res.send({ testMessage: "회원가입 완료" });
   } catch (error) {
     console.error(error);
     // return next(error);
@@ -75,21 +79,20 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
         console.error(loginError);
         return res.status(401).send({ errorMessage: loginError });
       }
-      // return res.redirect("/");
-      return res.send({ testMessage: "로그인 완료" });
+      return res.redirect("/");
+      // return res.send({ testMessage: "로그인 완료" });
     });
   })(req, res, next);
 });
 
 router.get("/logout", isLoggedIn, (req, res) => {
   req.logout();
-  req.session.destroy();
   req.session.destroy(() => {
     //세션 파괴
     res.clearCookie("connect.sid");
     //쿠키 삭제
-    // res.redirect("/");
-    res.send({ testMessage: "로그아웃 완료" });
+    res.redirect("/");
+    // res.send({ testMessage: "로그아웃 완료" });
     //홈으로 redirect
   });
 

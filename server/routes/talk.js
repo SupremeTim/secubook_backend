@@ -61,8 +61,8 @@ router.post("/comment", isLoggedIn, async (req, res) => {
       boardId,
     });
 
-    // res.redirect("/talk/detail/" + boardId);
-    res.send({ testMessage: "댓글 추가 완료" });
+    res.redirect("/talk/detail/" + boardId);
+    // res.send({ testMessage: "댓글 추가 완료" });
   } catch (error) {
     console.error(error);
     res.status(500).send({ errorMessage: "서버 내부 오류입니다." });
@@ -79,8 +79,8 @@ router.post("/add", isLoggedIn, async (req, res) => {
       userId: req.user.id,
     });
 
-    // res.redirect("/talk");
-    res.send({ testMessage: "게시판 추가 완료" });
+    res.redirect("/talk");
+    // res.send({ testMessage: "게시판 추가 완료" });
   } catch (error) {
     console.error(error);
     res.status(500).send({ errorMessage: "서버 내부 오류입니다." });

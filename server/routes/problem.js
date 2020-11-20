@@ -47,8 +47,19 @@ router.get("/:problemNumber", isLoggedIn, async (req, res, next) => {
     // console.log(results);
 
     // 코드 불러오기(배포)
+    // const data = fs.readFileSync(
+    //   "/home/ubuntu/secubook/user/userCode/" +
+    //     req.user.email +
+    //     "/workspace/problems/" +
+    //     "problem" +
+    //     problemNumber +
+    //     ".java",
+    //   "utf8"
+    // );
+
+    // 코드 불러오기(로컬)
     const data = fs.readFileSync(
-      "/home/ubuntu/secubook/user/userCode/" +
+      "~/secubook/user/userCode/" +
         req.user.email +
         "/workspace/problems/" +
         "problem" +
@@ -57,18 +68,6 @@ router.get("/:problemNumber", isLoggedIn, async (req, res, next) => {
       "utf8"
     );
 
-    // 코드 불러오기(로컬)
-    // const data = `if (!file.isEmpty()) {
-    //   String fileName = file.getOriginalFilename();
-
-    //   String successMessage = "File successfully uploaded";
-    //       modelData.put("fileName", fileName);
-    //       modelData.put("uploadMessage", successMessage);
-    //       savefile(file);
-
-    //   return new ModelAndView("uploadForm", modelData);
-
-    //   }`;
     res.send({
       testMessage: "문제 상세 조회",
       results: results,
@@ -92,32 +91,46 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
     // userCode로 덮어쓰기
 
     // 배포용
-    shell.mkdir(
-      "/home/ubuntu/secubook/user/userCode/" +
-        req.user.email +
-        "/workspace/problems/"
-    );
-    const targetPath =
-      "/home/ubuntu/secubook/user/userCode/" +
-      req.user.email +
-      "/workspace/problems/" +
-      "problem" +
-      problemNumber +
-      ".java";
-    // shell.touch(targetPath);
-    shell.echo(userCode).to(targetPath);
+    // shell.mkdir(
+    //   "/home/ubuntu/secubook/user/userCode/" +
+    //     req.user.email +
+    //     "/workspace/problems/"
+    // );
+    // const targetPath =
+    //   "/home/ubuntu/secubook/user/userCode/" +
+    //   req.user.email +
+    //   "/workspace/problems/" +
+    //   "problem" +
+    //   problemNumber +
+    //   ".java";
+    // // shell.touch(targetPath);
+    // shell.echo(userCode).to(targetPath);
 
     // 로컬용
-    // shell.mkdir("~/test");
-    // const path = "~/test/problem" + problemNumber + ".java";
-    // shell.touch(path);
-    // shell.echo(userCode).to(path);
+    const path =
+      "~/secubook/user/userCode/" +
+      req.user.email +
+      "/workspace/problems/problem" +
+      problemNumber +
+      ".java";
+    shell.echo(userCode).to(path);
 
     // Todo 2
     // 사용자 도커 컨테이너로 채점
     // ./score-code.sh [email] [problemNumber]
 
-    shell.cd("/home/ubuntu/secubook_problem");
+    // 배포용
+    // shell.cd("/home/ubuntu/secubook_problem");
+    // if (
+    //   shell.exec("./score_code.sh " + req.user.email + " " + problemNumber)
+    //     .code !== 0
+    // ) {
+    //   shell.echo("Error: command failed");
+    //   shell.exit(1);
+    // }
+
+    // 로컬용
+    shell.cd("~/secubook_problem");
     if (
       shell.exec("./score_code.sh " + req.user.email + " " + problemNumber)
         .code !== 0
@@ -147,12 +160,16 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
     // log.txt 파일 분석 후 결과 전송 -> 현재 시간 측정 후 그 이후 첫번째꺼
     // 결과에 따라 유저의 codingTest 리스트 수정
 
-    // const data = fs.readFileSync("/Users/cho/test/무제.txt", "utf8");
+    // 배포용
+    // const data = fs.readFileSync(
+    //   "/home/ubuntu/secubook/log/score/log.txt",
+    //   "utf8"
+    // );
+
+    // 로컬용
+    const data = fs.readFileSync("~/secubook/log/score/log.txt", "utf8");
     // console.log(data);
-    const data = fs.readFileSync(
-      "/home/ubuntu/secubook/log/score/log.txt",
-      "utf8"
-    );
+
     const result = data.split("\n");
     // console.log(result);
     const now = dateFormat(today, "yyyy-mm-dd HH:mm:ss").split(" ");
