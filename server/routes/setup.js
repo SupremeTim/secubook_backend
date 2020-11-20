@@ -54,33 +54,6 @@ router.get("/", async (req, res, next) => {
       boardId: 1,
     });
 
-    CodingTest.create({
-      title: "코테문제이름",
-      content: "코테푸세요",
-      category: 0,
-      level: 1,
-      image:
-        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
-    });
-
-    CodingTest.create({
-      title: "코테문제이름2",
-      content: "코테푸세요2",
-      category: 0,
-      level: 2,
-      image:
-        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
-    });
-
-    CodingTest.create({
-      title: "코테문제이름3",
-      content: "코테푸세요3",
-      category: 1,
-      level: 1,
-      image:
-        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
-    });
-
     Education.create({
       title: "XML조회-및-결과-검증",
       category: 0,
@@ -303,6 +276,69 @@ router.get("/", async (req, res, next) => {
     });
 
     CodingTest.create({
+      title: "XSS 1",
+      content:
+        "keyword라는 파라미터로 넘어온 검색어를 화면에 띄워주려한다. xss 취약점이 존재하는 코드를 수정하시오.",
+      category: 0,
+      level: 1,
+      image: "",
+    });
+
+    CodingTest.create({
+      title: "File upload 1",
+      content:
+        "JPG파일만 업로드 가능하게 하는 코드를 작성하시오. (endsWith 함수 사용)",
+      category: 0,
+      level: 1,
+      image: "",
+    });
+
+    CodingTest.create({
+      title: "File upload 2",
+      content:
+        "파일명에 NULL이 들어가 생길수 있는 파일확장자 문제를 해결하시오. (substring 함수 사용)",
+      category: 0,
+      level: 1,
+      image: "",
+    });
+
+    CodingTest.create({
+      title: "File upload 3",
+      content:
+        ".php파일의 업로드를 막고 .php3, .php4 등으로 우회 가능한 경우 발생할 수 있는 문제를 해결하시오. (정규식 : ^S+.(?i)(php)+[0-9])",
+      category: 0,
+      level: 2,
+      image: "",
+    });
+
+    CodingTest.create({
+      title: "명령어 삽입 1",
+      content:
+        "특수 문자(| ; & :)나 파일 리다이렉트 특수문자(>)을 제거하여 원하지 않은 운영체제 명령어가 실행 될 수 없도록 필터링을 수행하시오.",
+      category: 0,
+      level: 2,
+      image: "",
+    });
+
+    CodingTest.create({
+      title: "명령어 삽입 2",
+      content:
+        "해당 프로그램에서 실행할 프로그램을 제한하지 않고 있기 때문에 외부의 공격자는 가능한 모든 프로그램을 실행시킬 수 있다. notepad와 calculator만 실행 할 수 있게 하는 코드를 작성하시오.",
+      category: 0,
+      level: 3,
+      image: "",
+    });
+
+    CodingTest.create({
+      title: "암호화 1",
+      content:
+        "파라미터로 전달되는 msg를 암호화 알고리즘으로 암호화 하려 한다. 현재 안전하지 않은 암호 알고리즘이 적용되어 있는 코드를 안전한 암호 알고리즘이 적용되도록 수정하시오.",
+      category: 0,
+      level: 2,
+      image: "",
+    });
+
+    CodingTest.create({
       title: "Sql injection 1",
       content:
         "다음과 같이 user 테이블과 데이터가 일부 주어졌다. position이 Manager인 user의 firstname을 안전하게 불러오도록 코딩하시오.",
@@ -313,11 +349,11 @@ router.get("/", async (req, res, next) => {
     });
 
     CodingTest.create({
-      title: "암호화 1",
+      title: "Sql injection 2",
       content:
         "파라미터로 전달되는 msg를 암호화 알고리즘으로 암호화 하려 한다. 현재 안전하지 않은 암호 알고리즘이 적용되어 있는 코드를 안전한 암호 알고리즘이 적용되도록 수정하시오.",
       category: 0,
-      level: 1,
+      level: 2,
       image: "",
     });
     res.send({ testMessage: "더미데이터 추가 완료" });
