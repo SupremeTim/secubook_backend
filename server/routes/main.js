@@ -14,11 +14,11 @@ router.get("/", (req, res, next) => {
   // res.render("main", { user: req.user, test: "test" });
 });
 
-// router.get("/main", (req, res, next) => {
-//   res.send(
-//     express.static(path.join(__dirname, "../../front/build/index.html"))
-//   );
-// });
+router.get("/main", (req, res, next) => {
+  res.send(
+    express.static(path.join(__dirname, "../../front/build/index.html"))
+  );
+});
 
 // 로그인 미들웨어 추가 필요
 router.get("/mypage", isLoggedIn, async (req, res, next) => {
