@@ -109,6 +109,33 @@ router.get("/", async (req, res, next) => {
     });
 
     Education.create({
+      title: "파라미터-조작",
+      category: 1,
+      page: 0,
+      content: "test입니다.&&test입니다.",
+      image:
+        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+    });
+
+    Education.create({
+      title: "명령어-삽입",
+      category: 1,
+      page: 0,
+      content: "test입니다.&&test입니다.",
+      image:
+        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+    });
+
+    Education.create({
+      title: "파일-업로드",
+      category: 1,
+      page: 0,
+      content: "test입니다.&&test입니다.",
+      image:
+        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+    });
+
+    Education.create({
       title: "웹-서비스-요청-및-결과-검증",
       category: 0,
       page: 0,
@@ -124,14 +151,14 @@ router.get("/", async (req, res, next) => {
       image:
         "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
     });
-    Education.create({
-      title: "웹-기반-중요기능-수행-요청-유효성-검증",
-      category: 0,
-      page: 0,
-      content: "test입니다.&&test입니다.",
-      image:
-        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
-    });
+    // Education.create({
+    //   title: "웹-기반-중요기능-수행-요청-유효성-검증",
+    //   category: 0,
+    //   page: 0,
+    //   content: "test입니다.&&test입니다.",
+    //   image:
+    //     "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+    // });
     Education.create({
       title: "HTTP-프로토콜-유효성-검증",
       category: 0,
@@ -140,16 +167,16 @@ router.get("/", async (req, res, next) => {
       image:
         "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
     });
+    // Education.create({
+    //   title: "허용된-범위-내-메모리-접근",
+    //   category: 0,
+    //   page: 0,
+    //   content: "test입니다.&&test입니다.",
+    //   image:
+    //     "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+    // });
     Education.create({
-      title: "허용된-범위-내-메모리-접근",
-      category: 0,
-      page: 0,
-      content: "test입니다.&&test입니다.",
-      image:
-        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
-    });
-    Education.create({
-      title: "업로드,-다운로드-파일-검증",
+      title: "업로드/다운로드-파일-검증",
       category: 0,
       page: 0,
       content: "test입니다.&&test입니다.",
@@ -165,14 +192,14 @@ router.get("/", async (req, res, next) => {
       image:
         "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
     });
-    Education.create({
-      title: "취약한-인증",
-      category: 1,
-      page: 0,
-      content: "test입니다.&&test입니다.",
-      image:
-        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
-    });
+    // Education.create({
+    //   title: "취약한-인증",
+    //   category: 1,
+    //   page: 0,
+    //   content: "test입니다.&&test입니다.",
+    //   image:
+    //     "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+    // });
     Education.create({
       title: "크로스-사이트-스크립팅",
       category: 1,
@@ -181,30 +208,39 @@ router.get("/", async (req, res, next) => {
       image:
         "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
     });
+
     Education.create({
-      title: "취약한-접근-제어",
+      title: "암호화",
       category: 1,
       page: 0,
       content: "test입니다.&&test입니다.",
       image:
         "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
     });
-    Education.create({
-      title: "보안-설정-오류",
-      category: 1,
-      page: 0,
-      content: "test입니다.&&test입니다.",
-      image:
-        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
-    });
-    Education.create({
-      title: "민감-데이터-노출",
-      category: 1,
-      page: 0,
-      content: "test입니다.&&test입니다.",
-      image:
-        "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
-    });
+    // Education.create({
+    //   title: "취약한-접근-제어",
+    //   category: 1,
+    //   page: 0,
+    //   content: "test입니다.&&test입니다.",
+    //   image:
+    //     "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+    // });
+    // Education.create({
+    //   title: "보안-설정-오류",
+    //   category: 1,
+    //   page: 0,
+    //   content: "test입니다.&&test입니다.",
+    //   image:
+    //     "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+    // });
+    // Education.create({
+    //   title: "민감-데이터-노출",
+    //   category: 1,
+    //   page: 0,
+    //   content: "test입니다.&&test입니다.",
+    //   image:
+    //     "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
+    // });
 
     Drill.create({
       title: "XML조회-및-결과-검증",
@@ -265,15 +301,7 @@ router.get("/", async (req, res, next) => {
         "https://secubook-img-data.s3.ap-northeast-2.amazonaws.com/Unknown.jpeg",
       answer: "1",
     });
-    res.send({ testMessage: "더미데이터 추가 완료" });
-  } catch (error) {
-    console.error(error);
-    next(error);
-  }
-});
 
-router.get("/add", async (req, res, next) => {
-  try {
     CodingTest.create({
       title: "Sql injection 1",
       content:
@@ -292,6 +320,15 @@ router.get("/add", async (req, res, next) => {
       level: 1,
       image: "",
     });
+    res.send({ testMessage: "더미데이터 추가 완료" });
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
+router.get("/add", async (req, res, next) => {
+  try {
     res.send({ testMessage: "더미데이터 추가 완료" });
   } catch (error) {
     console.error(error);
