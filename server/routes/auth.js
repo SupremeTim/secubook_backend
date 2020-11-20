@@ -49,7 +49,8 @@ router.post("/join", isNotLoggedIn, async (req, res, next) => {
     //   shell.exit(1);
     // }
 
-    return res.redirect("/");
+    // return res.redirect("/");
+    return res.send({ testMessage: "회원가입 완료" });
   } catch (error) {
     console.error(error);
     // return next(error);
@@ -74,7 +75,8 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
         console.error(loginError);
         return res.status(401).send({ errorMessage: loginError });
       }
-      return res.redirect("/");
+      // return res.redirect("/");
+      return res.send({ testMessage: "로그인 완료" });
     });
   })(req, res, next);
 });
@@ -82,12 +84,12 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
 router.get("/logout", isLoggedIn, (req, res) => {
   req.logout();
   req.session.destroy();
-  res.redirect("/");
   req.session.destroy(() => {
     //세션 파괴
     res.clearCookie("connect.sid");
     //쿠키 삭제
-    res.redirect("/");
+    // res.redirect("/");
+    res.send({ testMessage: "로그아웃 완료" });
     //홈으로 redirect
   });
 
