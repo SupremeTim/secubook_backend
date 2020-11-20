@@ -59,7 +59,7 @@ router.get("/:problemNumber", isLoggedIn, async (req, res, next) => {
 
     // 코드 불러오기(로컬)
     const data = fs.readFileSync(
-      "~/secubook/user/userCode/" +
+      "/Users/cho/secubook/user/userCode/" +
         req.user.email +
         "/workspace/problems/" +
         "problem" +
@@ -108,7 +108,7 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
 
     // 로컬용
     const path =
-      "~/secubook/user/userCode/" +
+      "/Users/cho/secubook/user/userCode/" +
       req.user.email +
       "/workspace/problems/problem" +
       problemNumber +
@@ -167,7 +167,10 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
     // );
 
     // 로컬용
-    const data = fs.readFileSync("~/secubook/log/score/log.txt", "utf8");
+    const data = fs.readFileSync(
+      "/Users/cho/secubook/log/score/score.txt",
+      "utf8"
+    );
     // console.log(data);
 
     const result = data.split("\n");
