@@ -27,6 +27,7 @@ router.post("/test", isLoggedIn, async (req, res, next) => {
         )
       ) {
         return res.send({
+          user: req.user,
           result: "이수 조건을 만족하지 못해 진행할 수 없습니다.",
         });
       }
@@ -47,7 +48,30 @@ router.post("/test", isLoggedIn, async (req, res, next) => {
         });
       }
       break;
-
+    case 3:
+      if (
+        !(
+          req.user.studyList.includes("크로스-사이트-스크립팅/0") &&
+          req.user.studyList.includes("웹-서비스-요청-및-결과-검증/0") &&
+          req.user.studyList.includes("SQL-INJECTION/0") &&
+          req.user.studyList.includes("DBMS-조회-및-결과-검증/1") &&
+          req.user.studyList.includes("XML조회-및-결과-검증/1") &&
+          req.user.studyList.includes("파라미터-조작/1") &&
+          req.user.studyList.includes("명령어-삽입/1") &&
+          req.user.studyList.includes("파일-업로드/1") &&
+          req.user.studyList.includes(
+            "시스템-자원-접근-및-명령어-수행-입력값-검증/0"
+          ) &&
+          req.user.studyList.includes("HTTP-프로토콜-유효성-검증/0") &&
+          req.user.studyList.includes("업로드/다운로드-파일-검증/0") &&
+          req.user.studyList.includes("암호화/1")
+        )
+      ) {
+        return res.send({
+          user: req.user,
+          result: "이수 조건을 만족하지 못해 진행할 수 없습니다.",
+        });
+      }
     default:
       break;
   }
@@ -72,7 +96,7 @@ router.post("/test", isLoggedIn, async (req, res, next) => {
 
 // 레벨 테스트 정답 확인
 router.post("/check", isLoggedIn, async (req, res, next) => {
-  const { userAnswer, level } = req.body;
+  const { level } = req.body;
 
   try {
     // const result = await Drill.findAll({
