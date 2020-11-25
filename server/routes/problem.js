@@ -58,15 +58,15 @@ router.get("/:problemNumber", isLoggedIn, async (req, res, next) => {
     // );
 
     // 코드 불러오기(로컬)
-    const data = fs.readFileSync(
-      "/Users/cho/secubook/user/userCode/" +
-        req.user.email +
-        "/workspace/problems/" +
-        "problem" +
-        problemNumber +
-        ".java",
-      "utf8"
-    );
+    // const data = fs.readFileSync(
+    //   "/Users/cho/secubook/user/userCode/" +
+    //     req.user.email +
+    //     "/workspace/problems/" +
+    //     "problem" +
+    //     problemNumber +
+    //     ".java",
+    //   "utf8"
+    // );
 
     res.send({
       testMessage: "문제 상세 조회",
@@ -107,13 +107,14 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
     // shell.echo(userCode).to(targetPath);
 
     // 로컬용
-    const path =
-      "/Users/cho/secubook/user/userCode/" +
-      req.user.email +
-      "/workspace/problems/problem" +
-      problemNumber +
-      ".java";
-    shell.echo(userCode).to(path);
+    // const path =
+    //   "/Users/cho/secubook/user/userCode/" +
+    //   req.user.email +
+    //   "/workspace/problems/problem" +
+    //   problemNumber +
+    //   ".java";
+    // // console.log(userCode);
+    // shell.echo(userCode).to(path);
 
     // Todo 2
     // 사용자 도커 컨테이너로 채점
@@ -130,14 +131,14 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
     // }
 
     // 로컬용
-    shell.cd("~/secubook_problem");
-    if (
-      shell.exec("./score_code.sh " + req.user.email + " " + problemNumber)
-        .code !== 0
-    ) {
-      shell.echo("Error: command failed");
-      shell.exit(1);
-    }
+    // shell.cd("~/secubook_problem");
+    // if (
+    //   shell.exec("./score_code.sh " + req.user.email + " " + problemNumber)
+    //     .code !== 0
+    // ) {
+    //   shell.echo("Error: command failed");
+    //   shell.exit(1);
+    // }
 
     // 현재 문제 정보 가져옴
     const problem = await CodingTest.findOne({
@@ -167,25 +168,27 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
     // );
 
     // 로컬용
-    const data = fs.readFileSync(
-      "/Users/cho/secubook/log/score/score.txt",
-      "utf8"
-    );
+    // const data = fs.readFileSync(
+    //   "/Users/cho/secubook/log/score/score.txt",
+    //   "utf8"
+    // );
     // console.log(data);
 
     const result = data.split("\n");
-    // console.log(result);
+    console.log(result);
     const now = dateFormat(today, "yyyy-mm-dd HH:mm:ss").split(" ");
     const d = new Date(now[0] + " " + now[1]);
 
-    for (let index = 0; index < result.length; index++) {
+    for (let index = result.length - 1; index >= 0; index--) {
       const element = result[index];
       // console.log(element);
       const dataArr = element.split(" ");
       const targetD = new Date(dataArr[0] + " " + dataArr[1]);
       if (dataArr[2] == req.user.email && dataArr[3] == String(problemNumber)) {
+        console.log(targetD);
+        console.log(d);
         if (targetD.getTime() >= d.getTime()) {
-          if (dataArr[4] == 0) {
+          if (dataArr[4] == "0") {
             // console.log("틀림");
             return res.send({ result: "틀렸습니다." });
           } else {
